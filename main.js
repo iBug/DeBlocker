@@ -205,7 +205,379 @@ document.addEventListener(
     function addStyles() {
       let t = mdpDeBlocker.prefix,
         e = document.createElement("style");
-      e.innerHTML = `\n            .${t}-style-compact .${t}-blackout,\n            .${t}-style-compact-right-top .${t}-blackout,\n            .${t}-style-compact-left-top .${t}-blackout,\n            .${t}-style-compact-right-bottom .${t}-blackout,\n            .${t}-style-compact-left-bottom .${t}-blackout,\n            .${t}-style-compact .${t}-blackout {\n                position: fixed;\n                z-index: 9997;\n                left: 0;\n                top: 0;\n                width: 100%;\n                height: 100%;\n                display: none;\n            }\n\n            .${t}-style-compact .${t}-blackout.active,\n            .${t}-style-compact-right-top .${t}-blackout.active,\n            .${t}-style-compact-left-top .${t}-blackout.active,\n            .${t}-style-compact-right-bottom .${t}-blackout.active,\n            .${t}-style-compact-left-bottom .${t}-blackout.active,\n            .${t}-style-compact .${t}-blackout.active {\n                display: block;\n                -webkit-animation: deblocker-appear;\n                animation: deblocker-appear;\n                -webkit-animation-duration: .2s;\n                animation-duration: .2s;\n                -webkit-animation-fill-mode: both;\n                animation-fill-mode: both;\n            }\n\n            .${t}-style-compact .${t}-wrapper,\n            .${t}-style-compact-right-top .${t}-wrapper,\n            .${t}-style-compact-left-top .${t}-wrapper,\n            .${t}-style-compact-right-bottom .${t}-wrapper,\n            .${t}-style-compact-left-bottom .${t}-wrapper,\n            .${t}-style-compact .${t}-wrapper {\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                position: fixed;\n                top: 0;\n                left: 0;\n                width: 100%;\n                height: 100%;\n                z-index: 9998;\n            }\n\n            .${t}-style-compact .${t}-modal,\n            .${t}-style-compact-right-top .${t}-modal,\n            .${t}-style-compact-left-top .${t}-modal,\n            .${t}-style-compact-right-bottom .${t}-modal,\n            .${t}-style-compact-left-bottom .${t}-modal,\n            .${t}-style-compact .${t}-modal {\n                height: auto;\n                width: auto;\n                position: relative;\n                max-width: 40%;\n                padding: 4rem;\n                opacity: 0;\n                z-index: 9999;\n                transition: all 0.5s ease-in-out;\n                border-radius: 1rem;\n                margin: 1rem;\n            }\n\n            .${t}-style-compact .${t}-modal.active,\n            .${t}-style-compact-right-top .${t}-modal.active,\n            .${t}-style-compact-left-top .${t}-modal.active,\n            .${t}-style-compact-right-bottom .${t}-modal.active,\n            .${t}-style-compact-left-bottom .${t}-modal.active,\n            .${t}-style-compact .${t}-modal.active {\n                opacity: 1;\n                -webkit-animation: deblocker-appear;\n                animation: deblocker-appear;\n                -webkit-animation-delay: .1s;\n                animation-delay: .1s;\n                -webkit-animation-duration: .5s;\n                animation-duration: .5s;\n                -webkit-animation-fill-mode: both;\n                animation-fill-mode: both;\n            }\n\n            .${t}-style-compact .${t}-modal h4,\n            .${t}-style-compact-right-top .${t}-modal h4,\n            .${t}-style-compact-left-top .${t}-modal h4,\n            .${t}-style-compact-right-bottom .${t}-modal h4,\n            .${t}-style-compact-left-bottom .${t}-modal h4,\n            .${t}-style-compact .${t}-modal h4 {\n                margin: 0 0 1rem 0;\n                padding-right: .8rem;\n            }\n\n            .${t}-style-compact .${t}-modal p,\n            .${t}-style-compact-right-top .${t}-modal p,\n            .${t}-style-compact-left-top .${t}-modal p,\n            .${t}-style-compact-right-bottom .${t}-modal p,\n            .${t}-style-compact-left-bottom .${t}-modal p,\n            .${t}-style-compact .${t}-modal p {\n                margin: 0;\n            }\n\n            @media only screen and (max-width: 1140px) {\n                .${t}-style-compact .${t}-modal,\n                .${t}-style-compact-right-top .${t}-modal,\n                .${t}-style-compact-left-top .${t}-modal,\n                .${t}-style-compact-right-bottom .${t}-modal,\n                .${t}-style-compact-left-bottom .${t}-modal,\n                .${t}-style-compact .${t}-modal {\n                    min-width: 60%;\n                }\n            }\n\n            @media only screen and (max-width: 768px) {\n                .${t}-style-compact .${t}-modal,\n                .${t}-style-compact-right-top .${t}-modal,\n                .${t}-style-compact-left-top .${t}-modal,\n                .${t}-style-compact-right-bottom .${t}-modal,\n                .${t}-style-compact-left-bottom .${t}-modal,\n                .${t}-style-compact .${t}-modal {\n                    min-width: 80%;\n                }\n            }\n\n            @media only screen and (max-width: 420px) {\n                .${t}-style-compact .${t}-modal,\n                .${t}-style-compact-right-top .${t}-modal,\n                .${t}-style-compact-left-top .${t}-modal,\n                .${t}-style-compact-right-bottom .${t}-modal,\n                .${t}-style-compact-left-bottom .${t}-modal,\n                .${t}-style-compact .${t}-modal {\n                    min-width: 90%;\n                }\n            }\n\n            .${t}-style-compact .${t}-close,\n            .${t}-style-compact-right-top .${t}-close,\n            .${t}-style-compact-left-top .${t}-close,\n            .${t}-style-compact-right-bottom .${t}-close,\n            .${t}-style-compact-left-bottom .${t}-close,\n            .${t}-style-compact .${t}-close {\n                position: absolute;\n                right: 1rem;\n                top: 1rem;\n                display: inline-block;\n                cursor: pointer;\n                opacity: .3;\n                width: 32px;\n                height: 32px;\n                -webkit-animation: deblocker-close-appear;\n                animation: deblocker-close-appear;\n                -webkit-animation-delay: 1s;\n                animation-delay: 1s;\n                -webkit-animation-duration: .4s;\n                animation-duration: .4s;\n                -webkit-animation-fill-mode: both;\n                animation-fill-mode: both;\n            }\n\n            .${t}-style-compact .${t}-close:hover,\n            .${t}-style-compact-right-top .${t}-close:hover,\n            .${t}-style-compact-left-top .${t}-close:hover,\n            .${t}-style-compact-right-bottom .${t}-close:hover,\n            .${t}-style-compact-left-bottom .${t}-close:hover,\n            .${t}-style-compact .${t}-close:hover {\n                opacity: 1;\n            }\n\n            .${t}-style-compact .${t}-close:before,\n            .${t}-style-compact .${t}-close:after,\n            .${t}-style-compact-right-top .${t}-close:before,\n            .${t}-style-compact-right-top .${t}-close:after,\n            .${t}-style-compact-left-top .${t}-close:before,\n            .${t}-style-compact-left-top .${t}-close:after,\n            .${t}-style-compact-right-bottom .${t}-close:before,\n            .${t}-style-compact-right-bottom .${t}-close:after,\n            .${t}-style-compact-left-bottom .${t}-close:before,\n            .${t}-style-compact-left-bottom .${t}-close:after,\n            .${t}-style-compact .${t}-close:before,\n            .${t}-style-compact .${t}-close:after {\n                position: absolute;\n                left: 15px;\n                content: ' ';\n                height: 33px;\n                width: 2px;\n            }\n\n            .${t}-style-compact .${t}-close:before,\n            .${t}-style-compact-right-top .${t}-close:before,\n            .${t}-style-compact-left-top .${t}-close:before,\n            .${t}-style-compact-right-bottom .${t}-close:before,\n            .${t}-style-compact-left-bottom .${t}-close:before,\n            .${t}-style-compact .${t}-close:before {\n                transform: rotate(45deg);\n            }\n\n            .${t}-style-compact .${t}-close:after,\n            .${t}-style-compact-right-top .${t}-close:after,\n            .${t}-style-compact-left-top .${t}-close:after,\n            .${t}-style-compact-right-bottom .${t}-close:after,\n            .${t}-style-compact-left-bottom .${t}-close:after,\n            .${t}-style-compact .${t}-close:after {\n                transform: rotate(-45deg);\n            }\n\n            .${t}-style-compact-right-top .${t}-wrapper {\n                justify-content: flex-end;\n                align-items: flex-start;\n            }\n\n            .${t}-style-compact-left-top .${t}-wrapper {\n                justify-content: flex-start;\n                align-items: flex-start;\n            }\n\n            .${t}-style-compact-right-bottom .${t}-wrapper {\n                justify-content: flex-end;\n                align-items: flex-end;\n            }\n\n            .${t}-style-compact-left-bottom .${t}-wrapper {\n                justify-content: flex-start;\n                align-items: flex-end;\n            }\n\n            .${t}-style-full .${t}-blackout {\n                position: fixed;\n                z-index: 9998;\n                left: 0;\n                top: 0;\n                width: 100%;\n                height: 100%;\n                display: none;\n            }\n\n            .${t}-style-full .${t}-blackout.active {\n                display: block;\n                -webkit-animation: deblocker-appear;\n                animation: deblocker-appear;\n                -webkit-animation-delay: .4s;\n                animation-delay: .4s;\n                -webkit-animation-duration: .4s;\n                animation-duration: .4s;\n                -webkit-animation-fill-mode: both;\n                animation-fill-mode: both;\n            }\n\n            .${t}-style-full .${t}-modal {\n                height: 100%;\n                width: 100%;\n                max-width: 100%;\n                max-height: 100%;\n                position: fixed;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%, -50%);\n                padding: 45px;\n                opacity: 0;\n                z-index: 9999;\n                transition: all 0.5s ease-in-out;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n            }\n\n            .${t}-style-full .${t}-modal.active {\n                opacity: 1;\n                -webkit-animation: mdp-deblocker-appear;\n                animation: mdp-deblocker-appear;\n                -webkit-animation-duration: .4s;\n                animation-duration: .4s;\n                -webkit-animation-fill-mode: both;\n                animation-fill-mode: both;\n            }\n\n            .${t}-style-full .${t}-modal h4 {\n                margin: 0 0 1rem 0;\n            }\n\n            .${t}-style-full .${t}-modal p {\n                margin: 0;\n            }\n\n            .${t}-style-full .${t}-close {\n                position: absolute;\n                right: 10px;\n                top: 10px;\n                width: 32px;\n                height: 32px;\n                display: inline-block;\n                cursor: pointer;\n                opacity: .3;\n                -webkit-animation: mdp-deblocker-close-appear;\n                animation: mdp-deblocker-close-appear;\n                -webkit-animation-delay: 1s;\n                animation-delay: 1s;\n                -webkit-animation-duration: .4s;\n                animation-duration: .4s;\n                -webkit-animation-fill-mode: both;\n                animation-fill-mode: both;\n            }\n\n            .${t}-style-full .${t}-close:hover {\n                opacity: 1;\n            }\n\n            .${t}-style-full .${t}-close:before,\n            .${t}-style-full .${t}-close:after {\n                position: absolute;\n                left: 15px;\n                content: ' ';\n                height: 33px;\n                width: 2px;\n            }\n\n            .${t}-style-full .${t}-close:before {\n                transform: rotate(45deg);\n            }\n\n            .${t}-style-full .${t}-close:after {\n                transform: rotate(-45deg);\n            }\n\n            @-webkit-keyframes mdp-deblocker-appear {\n                from {\n                    opacity: 0;\n                }\n                to {\n                    opacity: 1;\n                }\n            }\n\n            @keyframes mdp-deblocker-appear {\n                from {\n                    opacity: 0;\n                }\n                to {\n                    opacity: 1;\n                }\n            }\n\n            @-webkit-keyframes mdp-deblocker-close-appear {\n                from {\n                    opacity: 0;\n                    transform: scale(0.2);\n                }\n                to {\n                    opacity: .3;\n                    transform: scale(1);\n                }\n            }\n\n            @keyframes mdp-deblocker-close-appear {\n                from {\n                    opacity: 0;\n                    transform: scale(0.2);\n                }\n                to {\n                    opacity: .3;\n                    transform: scale(1);\n                }\n            }\n\n            body.${t}-blur { \n                -webkit-backface-visibility: none;\n            }\n\n            body.${t}-blur > *:not(#wpadminbar):not(.${t}-modal):not(.${t}-wrapper):not(.${t}-blackout) {\n                -webkit-filter: blur(5px);\n                filter: blur(5px);\n            }\n        `;
+      e.innerHTML = `
+        .${t}-style-compact .${t}-blackout,
+        .${t}-style-compact-right-top .${t}-blackout,
+        .${t}-style-compact-left-top .${t}-blackout,
+        .${t}-style-compact-right-bottom .${t}-blackout,
+        .${t}-style-compact-left-bottom .${t}-blackout,
+        .${t}-style-compact .${t}-blackout {
+            position: fixed;
+            z-index: 9997;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .${t}-style-compact .${t}-blackout.active,
+        .${t}-style-compact-right-top .${t}-blackout.active,
+        .${t}-style-compact-left-top .${t}-blackout.active,
+        .${t}-style-compact-right-bottom .${t}-blackout.active,
+        .${t}-style-compact-left-bottom .${t}-blackout.active,
+        .${t}-style-compact .${t}-blackout.active {
+            display: block;
+            -webkit-animation: deblocker-appear;
+            animation: deblocker-appear;
+            -webkit-animation-duration: .2s;
+            animation-duration: .2s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .${t}-style-compact .${t}-wrapper,
+        .${t}-style-compact-right-top .${t}-wrapper,
+        .${t}-style-compact-left-top .${t}-wrapper,
+        .${t}-style-compact-right-bottom .${t}-wrapper,
+        .${t}-style-compact-left-bottom .${t}-wrapper,
+        .${t}-style-compact .${t}-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+        }
+
+        .${t}-style-compact .${t}-modal,
+        .${t}-style-compact-right-top .${t}-modal,
+        .${t}-style-compact-left-top .${t}-modal,
+        .${t}-style-compact-right-bottom .${t}-modal,
+        .${t}-style-compact-left-bottom .${t}-modal,
+        .${t}-style-compact .${t}-modal {
+            height: auto;
+            width: auto;
+            position: relative;
+            max-width: 40%;
+            padding: 4rem;
+            opacity: 0;
+            z-index: 9999;
+            transition: all 0.5s ease-in-out;
+            border-radius: 1rem;
+            margin: 1rem;
+        }
+
+        .${t}-style-compact .${t}-modal.active,
+        .${t}-style-compact-right-top .${t}-modal.active,
+        .${t}-style-compact-left-top .${t}-modal.active,
+        .${t}-style-compact-right-bottom .${t}-modal.active,
+        .${t}-style-compact-left-bottom .${t}-modal.active,
+        .${t}-style-compact .${t}-modal.active {
+            opacity: 1;
+            -webkit-animation: deblocker-appear;
+            animation: deblocker-appear;
+            -webkit-animation-delay: .1s;
+            animation-delay: .1s;
+            -webkit-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .${t}-style-compact .${t}-modal h4,
+        .${t}-style-compact-right-top .${t}-modal h4,
+        .${t}-style-compact-left-top .${t}-modal h4,
+        .${t}-style-compact-right-bottom .${t}-modal h4,
+        .${t}-style-compact-left-bottom .${t}-modal h4,
+        .${t}-style-compact .${t}-modal h4 {
+            margin: 0 0 1rem 0;
+            padding-right: .8rem;
+        }
+
+        .${t}-style-compact .${t}-modal p,
+        .${t}-style-compact-right-top .${t}-modal p,
+        .${t}-style-compact-left-top .${t}-modal p,
+        .${t}-style-compact-right-bottom .${t}-modal p,
+        .${t}-style-compact-left-bottom .${t}-modal p,
+        .${t}-style-compact .${t}-modal p {
+            margin: 0;
+        }
+
+        @media only screen and (max-width: 1140px) {
+            .${t}-style-compact .${t}-modal,
+            .${t}-style-compact-right-top .${t}-modal,
+            .${t}-style-compact-left-top .${t}-modal,
+            .${t}-style-compact-right-bottom .${t}-modal,
+            .${t}-style-compact-left-bottom .${t}-modal,
+            .${t}-style-compact .${t}-modal {
+                min-width: 60%;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .${t}-style-compact .${t}-modal,
+            .${t}-style-compact-right-top .${t}-modal,
+            .${t}-style-compact-left-top .${t}-modal,
+            .${t}-style-compact-right-bottom .${t}-modal,
+            .${t}-style-compact-left-bottom .${t}-modal,
+            .${t}-style-compact .${t}-modal {
+                min-width: 80%;
+            }
+        }
+
+        @media only screen and (max-width: 420px) {
+            .${t}-style-compact .${t}-modal,
+            .${t}-style-compact-right-top .${t}-modal,
+            .${t}-style-compact-left-top .${t}-modal,
+            .${t}-style-compact-right-bottom .${t}-modal,
+            .${t}-style-compact-left-bottom .${t}-modal,
+            .${t}-style-compact .${t}-modal {
+                min-width: 90%;
+            }
+        }
+
+        .${t}-style-compact .${t}-close,
+        .${t}-style-compact-right-top .${t}-close,
+        .${t}-style-compact-left-top .${t}-close,
+        .${t}-style-compact-right-bottom .${t}-close,
+        .${t}-style-compact-left-bottom .${t}-close,
+        .${t}-style-compact .${t}-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            display: inline-block;
+            cursor: pointer;
+            opacity: .3;
+            width: 32px;
+            height: 32px;
+            -webkit-animation: deblocker-close-appear;
+            animation: deblocker-close-appear;
+            -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+            -webkit-animation-duration: .4s;
+            animation-duration: .4s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .${t}-style-compact .${t}-close:hover,
+        .${t}-style-compact-right-top .${t}-close:hover,
+        .${t}-style-compact-left-top .${t}-close:hover,
+        .${t}-style-compact-right-bottom .${t}-close:hover,
+        .${t}-style-compact-left-bottom .${t}-close:hover,
+        .${t}-style-compact .${t}-close:hover {
+            opacity: 1;
+        }
+
+        .${t}-style-compact .${t}-close:before,
+        .${t}-style-compact .${t}-close:after,
+        .${t}-style-compact-right-top .${t}-close:before,
+        .${t}-style-compact-right-top .${t}-close:after,
+        .${t}-style-compact-left-top .${t}-close:before,
+        .${t}-style-compact-left-top .${t}-close:after,
+        .${t}-style-compact-right-bottom .${t}-close:before,
+        .${t}-style-compact-right-bottom .${t}-close:after,
+        .${t}-style-compact-left-bottom .${t}-close:before,
+        .${t}-style-compact-left-bottom .${t}-close:after,
+        .${t}-style-compact .${t}-close:before,
+        .${t}-style-compact .${t}-close:after {
+            position: absolute;
+            left: 15px;
+            content: ' ';
+            height: 33px;
+            width: 2px;
+        }
+
+        .${t}-style-compact .${t}-close:before,
+        .${t}-style-compact-right-top .${t}-close:before,
+        .${t}-style-compact-left-top .${t}-close:before,
+        .${t}-style-compact-right-bottom .${t}-close:before,
+        .${t}-style-compact-left-bottom .${t}-close:before,
+        .${t}-style-compact .${t}-close:before {
+            transform: rotate(45deg);
+        }
+
+        .${t}-style-compact .${t}-close:after,
+        .${t}-style-compact-right-top .${t}-close:after,
+        .${t}-style-compact-left-top .${t}-close:after,
+        .${t}-style-compact-right-bottom .${t}-close:after,
+        .${t}-style-compact-left-bottom .${t}-close:after,
+        .${t}-style-compact .${t}-close:after {
+            transform: rotate(-45deg);
+        }
+
+        .${t}-style-compact-right-top .${t}-wrapper {
+            justify-content: flex-end;
+            align-items: flex-start;
+        }
+
+        .${t}-style-compact-left-top .${t}-wrapper {
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .${t}-style-compact-right-bottom .${t}-wrapper {
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .${t}-style-compact-left-bottom .${t}-wrapper {
+            justify-content: flex-start;
+            align-items: flex-end;
+        }
+
+        .${t}-style-full .${t}-blackout {
+            position: fixed;
+            z-index: 9998;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .${t}-style-full .${t}-blackout.active {
+            display: block;
+            -webkit-animation: deblocker-appear;
+            animation: deblocker-appear;
+            -webkit-animation-delay: .4s;
+            animation-delay: .4s;
+            -webkit-animation-duration: .4s;
+            animation-duration: .4s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .${t}-style-full .${t}-modal {
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 45px;
+            opacity: 0;
+            z-index: 9999;
+            transition: all 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .${t}-style-full .${t}-modal.active {
+            opacity: 1;
+            -webkit-animation: mdp-deblocker-appear;
+            animation: mdp-deblocker-appear;
+            -webkit-animation-duration: .4s;
+            animation-duration: .4s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .${t}-style-full .${t}-modal h4 {
+            margin: 0 0 1rem 0;
+        }
+
+        .${t}-style-full .${t}-modal p {
+            margin: 0;
+        }
+
+        .${t}-style-full .${t}-close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            cursor: pointer;
+            opacity: .3;
+            -webkit-animation: mdp-deblocker-close-appear;
+            animation: mdp-deblocker-close-appear;
+            -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+            -webkit-animation-duration: .4s;
+            animation-duration: .4s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .${t}-style-full .${t}-close:hover {
+            opacity: 1;
+        }
+
+        .${t}-style-full .${t}-close:before,
+        .${t}-style-full .${t}-close:after {
+            position: absolute;
+            left: 15px;
+            content: ' ';
+            height: 33px;
+            width: 2px;
+        }
+
+        .${t}-style-full .${t}-close:before {
+            transform: rotate(45deg);
+        }
+
+        .${t}-style-full .${t}-close:after {
+            transform: rotate(-45deg);
+        }
+
+        @-webkit-keyframes mdp-deblocker-appear {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes mdp-deblocker-appear {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes mdp-deblocker-close-appear {
+            from {
+                opacity: 0;
+                transform: scale(0.2);
+            }
+            to {
+                opacity: .3;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes mdp-deblocker-close-appear {
+            from {
+                opacity: 0;
+                transform: scale(0.2);
+            }
+            to {
+                opacity: .3;
+                transform: scale(1);
+            }
+        }
+
+        body.${t}-blur {
+            -webkit-backface-visibility: none;
+        }
+
+        body.${t}-blur > *:not(#wpadminbar):not(.${t}-modal):not(.${t}-wrapper):not(.${t}-blackout) {
+            -webkit-filter: blur(5px);
+            filter: blur(5px);
+        }
+        `;
       let n = document.querySelectorAll("script"),
         o = n[Math.floor(Math.random() * n.length)];
       o.parentNode.insertBefore(e, o);
