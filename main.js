@@ -9,10 +9,14 @@
  * @contributors    Alexander Khmelnitskiy (info@alexander.khmelnitskiy.ua), Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
  **/
+
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    if (void 0 !== window.mdpDeBlockerDestroyer) return;
+    if (window.mdpDeBlockerDestroyer !== undefined) {
+      return;
+    }
+
     function disableTextSelection(t) {
       void 0 !== t.onselectstart
         ? (t.onselectstart = function () {
@@ -27,6 +31,7 @@ document.addEventListener(
           }),
         (t.style.cursor = "default");
     }
+
     function enableSelection(t) {
       void 0 !== t.onselectstart
         ? (t.onselectstart = function () {
@@ -41,6 +46,7 @@ document.addEventListener(
           }),
         (t.style.cursor = "auto");
     }
+
     function disableContextMenu() {
       (document.oncontextmenu = function (t) {
         var e = t || window.event;
@@ -53,11 +59,13 @@ document.addEventListener(
           return !1;
         });
     }
+
     function enableContextMenu() {
       (document.oncontextmenu = null),
         (document.body.oncontextmenu = null),
         (document.ondragstart = null);
     }
+
     let h_win_disableHotKeys, h_mac_disableHotKeys;
     function disableHotKeys() {
       (h_win_disableHotKeys = function (t) {
@@ -124,6 +132,7 @@ document.addEventListener(
             t.preventDefault();
         });
     }
+
     function disableDeveloperTools() {
       let checkStatus;
       window.addEventListener("keydown", function (t) {
@@ -149,6 +158,7 @@ document.addEventListener(
               : requestAnimationFrame(check);
         });
     }
+
     function enableHotKeys() {
       window.removeEventListener("keydown", h_win_disableHotKeys),
         (document.keypress = function (t) {
@@ -191,6 +201,7 @@ document.addEventListener(
             return !0;
         });
     }
+
     function addStyles() {
       let t = mdpDeBlocker.prefix,
         e = document.createElement("style");
@@ -199,6 +210,7 @@ document.addEventListener(
         o = n[Math.floor(Math.random() * n.length)];
       o.parentNode.insertBefore(e, o);
     }
+
     function showModal() {
       setTimeout(function () {
         let t = mdpDeBlocker.prefix;
@@ -266,28 +278,31 @@ document.addEventListener(
           disableDeveloperTools();
       }, mdpDeBlocker.timeout);
     }
-    function adsBlocked(t) {
-      let e = new Request(
+
+    function adsBlocked(blockedHandler) {
+      let req = new Request(
         "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
         { method: "HEAD", mode: "no-cors" }
       );
-      fetch(e)
-        .then(function (t) {
-          return t;
-        })
+      fetch(req)
+        .then((response) => response)
         .then(function (e) {
-          t(!1);
+          blockedHandler(false);
         })
         .catch(function (e) {
-          t(!0);
+          blockedHandler(true);
         });
     }
-    (window.mdpDeBlockerDestroyer = !0),
-      adsBlocked(function (t) {
-        t
-          ? showModal()
-          : document.getElementById("mdp-deblocker-ads") || showModal();
-      });
+
+    window.mdpDeBlockerDestroyer = true;
+
+    adsBlocked(function (isBlocked) {
+      if (isBlocked) {
+        showModal();
+      } else if (document.getElementById("mdp-deblocker-ads") === null) {
+        showModal();
+      }
+    });
   },
-  !1
+  false
 );
